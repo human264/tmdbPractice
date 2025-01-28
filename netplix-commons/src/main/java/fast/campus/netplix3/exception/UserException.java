@@ -15,4 +15,11 @@ public class UserException extends RuntimeException {
         }
     }
 
+    public static class UserAlreadyExistException extends UserException {
+        public UserAlreadyExistException() {
+            super(ErrorCode.USER_ALREADY_EXIST);
+        }
+
+    }
+
 }

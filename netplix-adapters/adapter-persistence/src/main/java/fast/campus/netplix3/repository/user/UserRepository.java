@@ -2,8 +2,11 @@ package fast.campus.netplix3.repository.user;
 
 
 import fast.campus.netplix3.entity.user.UserEntity;
+import fast.campus.netplix3.user.CreateUser;
 import fast.campus.netplix3.user.FetchUserPort;
+import fast.campus.netplix3.user.InsertUserPort;
 import fast.campus.netplix3.user.UserPortResponse;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -11,11 +14,12 @@ import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
-public class UserRepository implements FetchUserPort {
+public class UserRepository implements FetchUserPort, InsertUserPort {
 
     private final UserJpaRepository userJpaRepository;
 
     @Override
+    @Transactional
     public Optional<UserPortResponse> findByEmail(String email) {
         Optional<UserEntity> byEmail = userJpaRepository.findByEmail(email);
         if(byEmail.isEmpty()) {
@@ -32,4 +36,17 @@ public class UserRepository implements FetchUserPort {
         );
     }
 
+    @Override
+    @Transactional
+    public UserPortResponse create(CreateUser user) {
+        UserEntity userENtity = new UserEntity(user.getUsername(), user.getEncryptedPassword(), user.getEmail(), user.getPhone());
+        UserEntity save = userJpaRepository.save(userENtity);
+        return UserPortResponse.builder()
+                .userId(save.getUserId())
+                .username(save.getUsername())
+                .password(save.getPassword())
+                .email(save.getEmail())
+                .phone(save.getPhone())
+                .build();
+    }
 }

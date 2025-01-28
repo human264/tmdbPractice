@@ -31,9 +31,12 @@ public class SecurityConfig {
         httpSecurity.formLogin(AbstractHttpConfigurer::disable);
         httpSecurity.csrf(AbstractHttpConfigurer::disable);
         httpSecurity.cors(cors -> cors.configurationSource(configurationSource()));
-        httpSecurity.authorizeHttpRequests(
-                auth ->
-                        auth.anyRequest().authenticated());
+        httpSecurity.authorizeHttpRequests(auth ->
+                auth.requestMatchers(
+                                "/api/v1/user/register",
+                                "/api/v1/user/login"
+                        ).permitAll()
+                        .anyRequest().authenticated());
         httpSecurity.userDetailsService(netplixUserDetailsService);
 //        httpSecurity.oauth2Login(oauth2 -> oauth2.failureUrl("/login?error=true"));
 
