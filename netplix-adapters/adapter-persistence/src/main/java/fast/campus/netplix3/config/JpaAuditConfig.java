@@ -1,7 +1,13 @@
 package fast.campus.netplix3.config;
 
+import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
-@EnableJpaAuditing
+@EnableJpaAuditing(
+        auditorAwareRef = "requestByAuditorAware",
+        dateTimeProviderRef = "requestedAtAuditorAware"
+)
+@Configuration
 public class JpaAuditConfig {
+    
 }
