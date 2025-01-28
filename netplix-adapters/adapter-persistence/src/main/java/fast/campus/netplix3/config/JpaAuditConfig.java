@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @EnableJpaAuditing(
-        auditorAwareRef = "requestByAuditorAware",
+        auditorAwareRef = "requestedByAuditorAware",
         dateTimeProviderRef = "requestedAtAuditorAware"
 )
 @Configuration

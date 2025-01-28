@@ -10,8 +10,8 @@ spring:
       hibernate:
         format_sql: true
     hibernate:
-      ddl-auto: validate
-    generate-ddl: false
+      ddl-auto: update
+    generate-ddl: true
     open-in-view: false
     show-sql: true
   flyway:
