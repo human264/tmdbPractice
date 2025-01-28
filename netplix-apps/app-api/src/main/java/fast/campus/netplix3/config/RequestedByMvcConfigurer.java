@@ -1,10 +1,10 @@
 package fast.campus.netplix3.config;
 
-import fast.campus.netplix3.intercepter.RequstedByInterceptor;
+import fast.campus.netplix3.intercepter.RequestedByInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.WebRequestInterceptor;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Component
@@ -12,6 +12,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @RequiredArgsConstructor
 public class RequestedByMvcConfigurer implements WebMvcConfigurer {
 
-    private final RequstedByInterceptor interceptor;
+    private final RequestedByInterceptor interceptor;
 
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addWebRequestInterceptor(interceptor);
+    }
 }

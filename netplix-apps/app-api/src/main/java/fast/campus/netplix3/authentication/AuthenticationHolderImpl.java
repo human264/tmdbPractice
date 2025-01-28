@@ -20,7 +20,6 @@ public class AuthenticationHolderImpl  implements AuthenticationHolder, Requeste
 
     @Override
     public Optional<String> getRequestedBy() {
-        return getAuthentication()
-                .map(Authentication::getRequestedBy);
+        return getAuthentication().map(Authentication::getRequestedBy);
     }
 }

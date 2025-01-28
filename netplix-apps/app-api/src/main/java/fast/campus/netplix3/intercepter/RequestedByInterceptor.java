@@ -1,7 +1,7 @@
 package fast.campus.netplix3.intercepter;
 
 import fast.campus.netplix3.authentication.AuthenticationHolder;
-import fast.campus.netplix3.authentication.RequestBy;
+import fast.campus.netplix3.authentication.RequestedBy;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.ModelMap;
@@ -10,7 +10,7 @@ import org.springframework.web.context.request.WebRequestInterceptor;
 
 @Component
 @RequiredArgsConstructor
-public class RequstedByInterceptor implements WebRequestInterceptor {
+public class RequestedByInterceptor implements WebRequestInterceptor {
 
     public static final String REQUESTED_BY_HEADER = "requested_by";
 
@@ -19,7 +19,7 @@ public class RequstedByInterceptor implements WebRequestInterceptor {
     @Override
     public void preHandle(WebRequest request) throws Exception {
         String requestedBy = request.getHeader(REQUESTED_BY_HEADER);
-        RequestBy requested = new RequestBy(requestedBy);
+        RequestedBy requested = new RequestedBy(requestedBy);
         authenticationHolder.setAuthentication(requested);
     }
 
