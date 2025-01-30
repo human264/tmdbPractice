@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/netplix-adapters/adapter-persistence/src/main/resources/flyway/V1__init.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/netplix-adapters/adapter-persistence/src/main/resources/flyway/V2__spring_batch_schema.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/netplix-adapters/adapter-persistence/src/main/resources/flyway/V3__user_movie_downloads.sql" dialect="MySQL" />
+  </component>
+</project>

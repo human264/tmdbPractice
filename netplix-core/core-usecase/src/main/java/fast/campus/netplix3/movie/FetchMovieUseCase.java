@@ -4,4 +4,6 @@ import fast.campus.netplix3.movie.response.PageableMoviesResponse;
 
 public interface FetchMovieUseCase {
     PageableMoviesResponse fetchFromClient(int page);
+    PageableMoviesResponse fetchFromDb(int page);
+
 }

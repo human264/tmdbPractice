@@ -1,7 +1,7 @@
 spring:
   datasource:
     hikari:
-      jdbc-url: jdbc:mysql://localhost:3307/netplix
+      jdbc-url: jdbc:mysql://localhost:3307/netplix?useUnicode=true&characterEncoding=UTF-8&characterSetResults=UTF-8&serverTimezone=Asia/Seoul
       driver-class-name: com.mysql.cj.jdbc.Driver
       username: root
       password: admin
@@ -10,7 +10,7 @@ spring:
       hibernate:
         format_sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     generate-ddl: true
     open-in-view: false
     show-sql: true

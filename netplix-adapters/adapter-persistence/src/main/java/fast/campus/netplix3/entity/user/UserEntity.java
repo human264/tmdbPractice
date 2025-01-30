@@ -17,6 +17,7 @@ import java.util.UUID;
 @Table(name = "users")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class UserEntity extends MutableBaseEntity {
+
     @Id
     @Column(name = "USER_ID")
     private String userId;

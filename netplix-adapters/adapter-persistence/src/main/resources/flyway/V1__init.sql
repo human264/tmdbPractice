@@ -1,3 +1,4 @@
+-- 사용자 테이블
 DROP TABLE IF EXISTS `netplix`.`users`;
 CREATE TABLE `netplix`.`users`
 (
@@ -13,8 +14,12 @@ CREATE TABLE `netplix`.`users`
     MODIFIED_BY VARCHAR(50)  NOT NULL COMMENT '수정자',
 
     PRIMARY KEY (USER_ID)
-);
+)
+    ENGINE=InnoDB
+    DEFAULT CHARSET=utf8mb4
+    COLLATE=utf8mb4_unicode_ci;
 
+-- 소셜 사용자 테이블
 DROP TABLE IF EXISTS `netplix`.`social_users`;
 CREATE TABLE `netplix`.`social_users`
 (
@@ -29,8 +34,12 @@ CREATE TABLE `netplix`.`social_users`
     MODIFIED_BY    VARCHAR(50)  NOT NULL COMMENT '수정자',
 
     PRIMARY KEY (SOCIAL_USER_ID)
-);
+)
+    ENGINE=InnoDB
+    DEFAULT CHARSET=utf8mb4
+    COLLATE=utf8mb4_unicode_ci;
 
+-- 사용자 이력 테이블
 DROP TABLE IF EXISTS `netplix`.`user_histories`;
 CREATE TABLE `netplix`.`user_histories`
 (
@@ -49,8 +58,12 @@ CREATE TABLE `netplix`.`user_histories`
     MODIFIED_BY     VARCHAR(50)  NOT NULL COMMENT '수정자',
 
     PRIMARY KEY (USER_HISTORY_ID)
-);
+)
+    ENGINE=InnoDB
+    DEFAULT CHARSET=utf8mb4
+    COLLATE=utf8mb4_unicode_ci;
 
+-- 사용자 구독 테이블
 DROP TABLE IF EXISTS `netplix`.`user_subscriptions`;
 CREATE TABLE `netplix`.`user_subscriptions`
 (
@@ -59,7 +72,7 @@ CREATE TABLE `netplix`.`user_subscriptions`
     SUBSCRIPTION_NAME    VARCHAR(255) NOT NULL COMMENT '구독권 이름',
     START_AT             DATETIME     NOT NULL COMMENT '시작 일시 (yyyyMMdd HH:mm:dd)',
     END_AT               DATETIME     NOT NULL COMMENT '종료 일시 (yyyyMMdd HH:mm:dd)',
-    VALID_YN             TINYINT(1) NOT NULL COMMENT '구독권 유효 여부',
+    VALID_YN             TINYINT(1)   NOT NULL COMMENT '구독권 유효 여부',
 
     CREATED_AT           DATETIME     NOT NULL COMMENT '생성일자',
     CREATED_BY           VARCHAR(50)  NOT NULL COMMENT '생성자',
@@ -67,8 +80,12 @@ CREATE TABLE `netplix`.`user_subscriptions`
     MODIFIED_BY          VARCHAR(50)  NOT NULL COMMENT '수정자',
 
     PRIMARY KEY (USER_SUBSCRIPTION_ID)
-);
+)
+    ENGINE=InnoDB
+    DEFAULT CHARSET=utf8mb4
+    COLLATE=utf8mb4_unicode_ci;
 
+-- 토큰 테이블
 DROP TABLE IF EXISTS `netplix`.`tokens`;
 CREATE TABLE `netplix`.`tokens`
 (
@@ -76,8 +93,8 @@ CREATE TABLE `netplix`.`tokens`
     USER_ID                  VARCHAR(255) NOT NULL COMMENT '사용자 ID',
     ACCESS_TOKEN             VARCHAR(255) COMMENT '액세스 토큰',
     REFRESH_TOKEN            VARCHAR(255) COMMENT '리프레시 토큰',
-    ACCESS_TOKEN_EXPIRES_AT  DATETIME COMMENT '액세스 토큰 만료시간',
-    REFRESH_TOKEN_EXPIRES_AT DATETIME COMMENT '리프레시 토큰 만료시간',
+    ACCESS_TOKEN_EXPIRES_AT  DATETIME     COMMENT '액세스 토큰 만료시간',
+    REFRESH_TOKEN_EXPIRES_AT DATETIME     COMMENT '리프레시 토큰 만료시간',
 
     CREATED_AT               DATETIME     NOT NULL COMMENT '생성일자',
     CREATED_BY               VARCHAR(50)  NOT NULL COMMENT '생성자',
@@ -85,14 +102,18 @@ CREATE TABLE `netplix`.`tokens`
     MODIFIED_BY              VARCHAR(50)  NOT NULL COMMENT '수정자',
 
     PRIMARY KEY (TOKEN_ID)
-);
+)
+    ENGINE=InnoDB
+    DEFAULT CHARSET=utf8mb4
+    COLLATE=utf8mb4_unicode_ci;
 
+-- 영화 테이블
 DROP TABLE IF EXISTS `netplix`.`movies`;
 CREATE TABLE `netplix`.`movies`
 (
     MOVIE_ID    VARCHAR(255) NOT NULL COMMENT '영화 ID',
     MOVIE_NAME  VARCHAR(255) NOT NULL COMMENT '영화 명',
-    IS_ADULT    TINYINT(1) COMMENT '성인영화 여부',
+    IS_ADULT    TINYINT(1)   COMMENT '성인영화 여부',
     GENRE       VARCHAR(255) COMMENT '장르',
     OVERVIEW    VARCHAR(255) COMMENT '설명',
     RELEASED_AT VARCHAR(255) COMMENT '출시일자',
@@ -103,15 +124,19 @@ CREATE TABLE `netplix`.`movies`
     MODIFIED_BY VARCHAR(50)  NOT NULL COMMENT '수정자',
 
     PRIMARY KEY (MOVIE_ID)
-);
+)
+    ENGINE=InnoDB
+    DEFAULT CHARSET=utf8mb4
+    COLLATE=utf8mb4_unicode_ci;
 
+-- 사용자 영화 좋아요 테이블
 DROP TABLE IF EXISTS `netplix`.`user_movie_likes`;
 CREATE TABLE `netplix`.`user_movie_likes`
 (
     USER_MOVIE_LIKE_ID VARCHAR(255) NOT NULL COMMENT 'PK',
     USER_ID            VARCHAR(255) NOT NULL COMMENT '사용자 ID',
     MOVIE_ID           VARCHAR(255) NOT NULL COMMENT '영화 ID',
-    LIKE_YN            TINYINT(1) COMMENT '좋아요 여부',
+    LIKE_YN            TINYINT(1)   COMMENT '좋아요 여부',
 
     CREATED_AT         DATETIME     NOT NULL COMMENT '생성일자',
     CREATED_BY         VARCHAR(50)  NOT NULL COMMENT '생성자',
@@ -119,4 +144,7 @@ CREATE TABLE `netplix`.`user_movie_likes`
     MODIFIED_BY        VARCHAR(50)  NOT NULL COMMENT '수정자',
 
     PRIMARY KEY (USER_MOVIE_LIKE_ID)
-);
+)
+    ENGINE=InnoDB
+    DEFAULT CHARSET=utf8mb4
+    COLLATE=utf8mb4_unicode_ci;

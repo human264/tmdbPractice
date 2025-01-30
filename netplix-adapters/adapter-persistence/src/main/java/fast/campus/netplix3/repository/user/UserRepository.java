@@ -1,14 +1,17 @@
 package fast.campus.netplix3.repository.user;
 
 
+import fast.campus.netplix3.entity.user.SocialUserEntity;
 import fast.campus.netplix3.entity.user.UserEntity;
+import fast.campus.netplix3.repository.user.social.SocialUserJpaRepository;
 import fast.campus.netplix3.user.CreateUser;
 import fast.campus.netplix3.user.FetchUserPort;
 import fast.campus.netplix3.user.InsertUserPort;
 import fast.campus.netplix3.user.UserPortResponse;
-import jakarta.transaction.Transactional;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -17,12 +20,13 @@ import java.util.Optional;
 public class UserRepository implements FetchUserPort, InsertUserPort {
 
     private final UserJpaRepository userJpaRepository;
+    private final SocialUserJpaRepository socialUserJpaRepository;
 
     @Override
     @Transactional
     public Optional<UserPortResponse> findByEmail(String email) {
         Optional<UserEntity> byEmail = userJpaRepository.findByEmail(email);
-        if(byEmail.isEmpty()) {
+        if (byEmail.isEmpty()) {
             return Optional.empty();
         }
         return Optional.of(
@@ -33,6 +37,23 @@ public class UserRepository implements FetchUserPort, InsertUserPort {
                         .email(byEmail.get().getEmail())
                         .phone(byEmail.get().getPhone())
                         .build()
+        );
+    }
+
+    @Override
+    @Transactional
+    public Optional<UserPortResponse> findByProviderId(String providerId) {
+        Optional<SocialUserEntity> byProviderId = socialUserJpaRepository.findByProviderId(providerId);
+        if (byProviderId.isEmpty()) {
+            return Optional.empty();
+        }
+        SocialUserEntity socialUserEntity = byProviderId.get();
+
+        return Optional.of(UserPortResponse.builder()
+                .provider(socialUserEntity.getProvider())
+                .providerId(socialUserEntity.getProviderId())
+                .username(socialUserEntity.getUsername())
+                .build()
         );
     }
 
@@ -49,4 +70,17 @@ public class UserRepository implements FetchUserPort, InsertUserPort {
                 .phone(save.getPhone())
                 .build();
     }
+
+    @Override
+    @Transactional
+    public UserPortResponse createSocialUser(String username, String provider, String providerId) {
+        SocialUserEntity socialUserEntity = new SocialUserEntity(username, provider, providerId);
+        socialUserJpaRepository.save(socialUserEntity);
+        return UserPortResponse.builder()
+                .provider(socialUserEntity.getProvider())
+                .providerId(socialUserEntity.getProviderId())
+                .username(socialUserEntity.getUsername())
+                .build();
+    }
+
 }

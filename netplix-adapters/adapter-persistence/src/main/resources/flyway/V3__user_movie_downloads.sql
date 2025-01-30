@@ -11,4 +11,6 @@ CREATE TABLE `netplix`.`user_movie_downloads`
     MODIFIED_BY            VARCHAR(50)  NOT NULL COMMENT '수정자',
 
     PRIMARY KEY (USER_MOVIE_DOWNLOAD_ID)
-);
+) ENGINE=InnoDB
+  DEFAULT CHARSET=utf8mb4
+  COLLATE=utf8mb4_unicode_ci;
